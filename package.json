@@ -25,6 +25,8 @@
   "dependencies": {
     "confidence": "^1.4.2",
     "crumb": "^6.0.0",
+    "download": "^5.0.2",
+    "fs": "0.0.2",
     "glue": "^3.2.0",
     "handlebars": "^4.0.5",
     "hapi": "^13.2.1",
@@ -32,8 +34,11 @@
     "hoek": "^3.0.4",
     "inert": "^3.2.0",
     "mongoose": "^4.4.10",
+    "oauth": "^0.9.14",
+    "request": "^2.72.0",
     "vision": "^4.0.1",
     "visionary": "^4.0.0",
+    "xml2js": "^0.4.16",
     "yar": "^7.0.0"
   },
   "devDependencies": {

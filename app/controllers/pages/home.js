@@ -1,4 +1,5 @@
 'use strict';
+var twitter_api=require('../utils/twitter_api.js')
 
 exports.view = {
     description: 'Returns the home page',
@@ -10,6 +11,6 @@ exports.view = {
 exports.foo = {
     description: 'returns foo page',
     handler: function(request, reply) {
-        reply.view('foopage', { 'message': 'bar'});
+    	twitter_api.get_users_from_list(request,reply);
     }
 };

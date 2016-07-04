@@ -18,7 +18,7 @@ exports.register = function(server, options, next) {
         },
         {
             method: 'GET',
-            path: '/foo',
+            path: '/foo/{list_id}',
             config: Controllers.pages.home.foo
         }
 
