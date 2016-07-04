@@ -30,21 +30,6 @@ internals.manifest = {
     }],
     registrations: [
 
-        // Cookie authentication
-        {
-            plugin: 'hapi-auth-cookie'
-        },
-
-        //  Crumb
-        {
-            plugin: {
-                register: 'crumb',
-                options: {
-                    autoGenerate: true
-                }
-            }
-        },
-
         // Static file and directory handlers
         {
             plugin: 'inert'
@@ -72,47 +57,6 @@ internals.manifest = {
             }
         },
 
-        //  MongoDB connector 
-        {
-            plugin: {
-                register: './lib/mongoose',
-                options: Config.get('/mongoose')
-            }
-        },
-
-        // Flash Plugin
-        {
-            plugin: {
-                register: './lib/flash'
-            }
-        },
-
-        // Hapi cookie jar
-        {
-            plugin: {
-                register: 'yar',
-                options: Config.get('/yarCookie')
-            }
-        },
-
-        //  Authentication strategy
-        {
-            plugin: {
-                register: './lib/auth',
-                options: Config.get('/authCookie')
-            }
-        },
-
-        //  App context decorator
-        {
-            plugin: {
-                register: './lib/context',
-                options: {
-                    meta: Meta.get('/')
-                }
-            }
-        },
-
         //  Core routes
         {
             plugin: './app/routes/core.js'
@@ -121,11 +65,6 @@ internals.manifest = {
         //  Pages routes
         {
             plugin: './app/routes/pages.js'
-        },
-
-        //  Auth routes
-        {
-            plugin: './app/routes/auth.js'
         }
     ]
 };

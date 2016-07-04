@@ -2,18 +2,14 @@
 
 exports.view = {
     description: 'Returns the home page',
-    auth: {
-        mode: 'try',
-        strategy: 'standard'
-    },
-    plugins: {
-        'hapi-auth-cookie': {
-            redirectTo: false // '/login' if set redirects to ./login.
-        }
-    },
     handler: function(request, reply) {
+        reply.view('homepage', { 'message': 'Hello, world'});
+    }
+};
 
-        reply.view('homepage');
-
+exports.foo = {
+    description: 'returns foo page',
+    handler: function(request, reply) {
+        reply.view('foopage', { 'message': 'bar'});
     }
 };

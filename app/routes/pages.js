@@ -1,6 +1,6 @@
 'use strict';
 
-exports.register = function(plugin, options, next) {
+exports.register = function(server, options, next) {
 
     var Controllers = {
         pages: {
@@ -8,13 +8,18 @@ exports.register = function(plugin, options, next) {
         }
     };
 
-    plugin.route([
+    server.route([
 
         // Home Page
         {
             method: 'GET',
             path: '/',
             config: Controllers.pages.home.view
+        },
+        {
+            method: 'GET',
+            path: '/foo',
+            config: Controllers.pages.home.foo
         }
 
     ]);

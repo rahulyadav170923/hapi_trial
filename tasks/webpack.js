@@ -61,6 +61,4 @@ Gulp.task('webpack', function() {
             colors: true
         }));
     });
-
-
 });
