@@ -1,0 +1,20 @@
+
+<form method="post" action="">
+    <input type="text" name="query" placeholder="Search...">
+    <input type="submit" value="Submit">
+</form>
+
+
+
+{{#if users}}
+{{#each users}}
+<div>
+<ul>{{id}}
+<li>twitter handle : {{screen_name}}</li>
+<li>name : {{name}}</li>
+<li>no of followers : {{followers_count}}</li>
+<li>friends : {{friends_count}}</li>
+</ul>
+<div>
+{{/each}}
+{{/if}}

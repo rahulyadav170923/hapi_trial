@@ -8,9 +8,27 @@ exports.view = {
     }
 };
 
-exports.foo = {
-    description: 'returns foo page',
+exports.search = {
+    description: 'Returns search page',
     handler: function(request, reply) {
-    	twitter_api.get_users_from_list(request,reply);
+        reply.view('search/search');
+    }
+};
+exports.search_hash = {
+    description: 'Returns search result',
+    payload: {
+        parse:true
+    },
+    handler: function(request, reply) {
+        twitter_api.get_users_from_hash_tag(request,reply);
+    }
+};
+exports.search_list = {
+    description: 'Returns search result',
+    payload: {
+        parse:true
+    },
+    handler: function(request, reply) {
+        twitter_api.get_users_from_list(request,reply);
     }
 };

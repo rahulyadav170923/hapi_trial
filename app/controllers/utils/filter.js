@@ -33,19 +33,18 @@ return collect_data;
 
 
 
-exports.hash_min_followers_filter=function(data){
+exports.hash_min_followers_filter=function(data,reply){
 	data = JSON.parse(data);
 	var min_followers=200;
 	var members=[];
 	for (var item in data['statuses'])
 	{
-		console.log(data['statuses'][item])
+		console.log(data['statuses'][item]);
 		if (data['statuses'][item]['user']['followers_count']>=min_followers)
 		{
-			members.push(data['statuses'][item]['user'])
+			members.push(data['statuses'][item]['user']);
 		}
 	
 }
-console.log(members)
-return members
+return reply.view('search/search',{'users':members});
 }

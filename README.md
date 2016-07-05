@@ -114,5 +114,3 @@ $ npm test
 
 ## Contributers
 
-[See the awesome people!](https://github.com/ravisuhag/jolly/graphs/contributors)
-

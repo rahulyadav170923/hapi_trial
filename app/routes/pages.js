@@ -17,11 +17,26 @@ exports.register = function(server, options, next) {
             config: Controllers.pages.home.view
         },
         {
-            method: 'GET',
-            path: '/foo/{list_id}',
-            config: Controllers.pages.home.foo
-        }
-
+            method: ['GET'],
+            path: '/search_by_hash',
+            config: Controllers.pages.home.search
+        },
+        {
+            method: ['POST'],
+            path: '/search_by_hash',
+            config: Controllers.pages.home.search_hash
+        },
+        {
+            method: ['GET'],
+            path: '/search_by_list',
+            config: Controllers.pages.home.search
+        },
+        {
+            method: ['POST'],
+            path: '/search_by_list',
+            config: Controllers.pages.home.search_list
+        },
+        
     ]);
 
     next();

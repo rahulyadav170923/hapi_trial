@@ -51,7 +51,7 @@ var users=function(url,config_twitter,collect_data,cursor,reply,filter_fun){
           collect_data=filter_fun(data,collect_data);
           if(cursor==0)
           {            
-            return reply(collect_data);
+            return reply.view('search/search',{'users':collect_data});
           }
           users(url,config_twitter,collect_data,cursor,reply,filter_fun);
 
@@ -67,15 +67,15 @@ var users=function(url,config_twitter,collect_data,cursor,reply,filter_fun){
 exports.get_users_from_list=function (request,reply) {
     var cursor=-1;
     var collect_data=[];
-    users(config_twitter['urls']['list']+request.params.list_id,config_twitter,collect_data,cursor,reply,filter.list_min_followers_filter);      
+    users(config_twitter['urls']['list']+request.payload.query,config_twitter,collect_data,cursor,reply,filter.list_min_followers_filter);      
   }
 
 
 // get users from hash tag
-var get_users_from_hash_tag=function (request,reply) {
-    console.log(config_twitter['urls']['search_hash']+encodeURIComponent('#'+request.params.hash_tag));
+exports.get_users_from_hash_tag=function (request,reply) {
+    console.log(config_twitter['urls']['search_hash']+encodeURIComponent('#'+request.payload.query));
     oauth.get(
-      config_twitter['urls']['search_hash']+encodeURIComponent('#'+request.params.hash_tag),
+      config_twitter['urls']['search_hash']+encodeURIComponent('#'+request.payload.query),
       config_twitter['auth_keys']['accessToken'], 
       config_twitter['auth_keys']['accessTokenSecret'],              
       function (e, data, res){
@@ -84,14 +84,14 @@ var get_users_from_hash_tag=function (request,reply) {
           console.log(require('util').inspect(data));
         }
         else{
-          return reply(filter.hash_min_followers_filter(data));
+          return filter.hash_min_followers_filter(data,reply);
         }
           
       });
   }
 
 // create new list
-var create_new_list=function (request, reply) {
+exports.create_new_list=function (request, reply) {
       console.log(config_twitter['urls']['create_list']);
       oauth.post(
       config_twitter['urls']['create_list']+request.params.list_id,
@@ -113,7 +113,7 @@ var create_new_list=function (request, reply) {
 
 
 // update members to the list
-var update_members_to_the_list=function (request, reply) {
+exports.update_members_to_the_list=function (request, reply) {
       console.log(config_twitter['urls']['update_members']);
       oauth.post(
       config_twitter['urls']['update_members']+'slug='+request.params.list_name+'&owner_screen_name='+request.params.screen_name+'&screen_name='+request.params.twitter_handle,
@@ -134,7 +134,7 @@ var update_members_to_the_list=function (request, reply) {
     }
 
 //delete members from list
-var delete_members_from_list=function (request, reply) {
+exports.delete_members_from_list=function (request, reply) {
       oauth.post(
       config_twitter['urls']['delete_members']+'slug='+request.params.list_name+'&owner_screen_name='+request.params.screen_name+'&screen_name='+request.params.twitter_handle,
       config_twitter['auth_keys']['accessToken'],
@@ -154,7 +154,7 @@ var delete_members_from_list=function (request, reply) {
     }
 
 //get tweets from list
-var get_tweets_from_list=function (request,reply) {
+exports.get_tweets_from_list=function (request,reply) {
     oauth.get(
       config_twitter['urls']['tweets_from_list']+'slug='+request.params.list_name+'&owner_screen_name='+request.params.screen_name,
       config_twitter['auth_keys']['accessToken'], 
@@ -172,7 +172,7 @@ var get_tweets_from_list=function (request,reply) {
   }
 
 // delete list
-var delete_list=function (request, reply) {
+exports.delete_list=function (request, reply) {
       console.log(config_twitter['urls']['create_list']);
       oauth.post(
       config_twitter['urls']['delete_list']+'slug='+request.params.list_name+'&owner_screen_name='+request.params.screen_name,
@@ -193,7 +193,7 @@ var delete_list=function (request, reply) {
     }
 
 // subscribe to the list
-var subscribe_to_the_list=function (request, reply) {
+exports.subscribe_to_the_list=function (request, reply) {
       console.log(config_twitter['urls']['subscribe_to_list']+'slug='+request.params.list_name+'&owner_screen_name='+request.params.screen_name);
       oauth.post(
       config_twitter['urls']['subscribe_to_list']+'slug='+request.params.list_name+'&owner_screen_name='+request.params.screen_name,
@@ -214,7 +214,7 @@ var subscribe_to_the_list=function (request, reply) {
     }
 
 // unsubscribe to list
-var unsubscribe_to_list=function (request, reply) {
+exports.unsubscribe_to_list=function (request, reply) {
       console.log(config_twitter['urls']['unsubscribe_to_list']);
       oauth.post(
       config_twitter['urls']['unsubscribe_to_list']+'slug='+request.params.list_name+'&owner_screen_name='+request.params.screen_name,
@@ -235,7 +235,7 @@ var unsubscribe_to_list=function (request, reply) {
     }
 
 // subscribers of the list
-var subscribers_of_the_list=function (request, reply) {
+exports.subscribers_of_the_list=function (request, reply) {
     var cursor=-1;
     var collect_data=[];
     users(config_twitter['urls']['subscribers']+'slug='+request.params.list_name+'&owner_screen_name='+request.params.screen_name,config_twitter,collect_data,cursor,reply,filter.list_min_followers_filter);
